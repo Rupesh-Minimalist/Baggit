@@ -6,6 +6,8 @@ const adminSchema=mongoose.Schema({
     name:{
         type:String,
         required:true,
+        minLength:3,
+        trim:true
     },
     email:{
         type:String,
@@ -22,7 +24,6 @@ const adminSchema=mongoose.Schema({
     },
     dp:{
         type:String,
-        required:true,
     },
     gstin:String
 })

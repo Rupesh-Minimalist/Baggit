@@ -24,17 +24,12 @@ const userSchema=mongoose.Schema({
         type:Array,
         default:[]
     },
-    isadmin:{
-        type:Boolean,
-        required:true,
-    },
     orders:{
         type:Array,
         default:[]
     },
     dp:{
         type:String,
-        required:true,
     }
 })
 
