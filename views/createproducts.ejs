@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+
+    <% if(success.length>0){ %>
+        <div class=" px-3 h-12 bg-purple-600 absolute left-1/2 -translate-x-1/2 text-center text-white font-bold text-xl rounded-b-md animate-pulse z-40">
+            <span class="relative top-2">
+            <%= success %>
+            </span>
+        </div>
+        
+    <% } %>
+    
+
+    <div class="w-full  bg-zinc-100 ">
+        <div class="w-full flex items-center justify-between fixed bg-white shadow-lg z-20">
+            <div class="flex items-center font-mono text-2xl">
+                <img src="https://vivianamalls.com/wp-content/uploads/2023/08/Baggit-Viviana-Mall-Thane-Mumbai.png"
+                    alt="" class="w-28 -mb-2 ml-16">
+                <p class="-mt-4">/ Admin Panel</p>
+            </div>
+            
+            <div class="flex gap-8 font-semibold text-xl pr-3 font-mono">
+                <a href="/shop"
+                    class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Home</a>
+                <a href="/logout"
+                    class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Products</a>
+                <a href="/logout"
+                    class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Cart</a>
+                <a href="/logout"
+                    class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">My
+                    account</a>
+                <a href="/logout"
+                    class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Logout</a>
+            </div>
+
+        </div>
+
+        <hr class="w-full h-0.5 pt-32">
+
+        <div class="flex">
+            <div class="w-[25%] flex h-screen flex-col items-start px-16 pt-4 font-medium gap-4 opacity-65">
+                <a href="">All Products</a>
+                <a href="">Create new Products</a>
+            </div>
+            <div class=" w-[70%]">
+                <p class="text-2xl font-medium ">Create new Product</p>
+                <hr class="w-full bg-black h-0.5 my-4 opacity-20">
+                
+                <form action="/products/createprod" method="post" enctype="multipart/form-data" class="flex flex-col">
+                    <p class="inline-block pt-2 font-medium ">Product image:
+                        <input type="file" id="fileInput" name="image" class="hidden">
+                        <label for="fileInput" class="cursor-pointer bg-purple-600 hover:bg-purple-700 text-white  py-1.5 px-4 rounded">Upload File
+                        </label>
+                    </p>
+                    <input type="text" placeholder="Enter Product Name" name="name" class="mt-5 px-3 py-2 w-[325px] rounded-md">
+                    <div>
+                        <input type="text" placeholder="Product Price" name="price" class="mt-5 px-3 py-2 w-40 rounded-md">
+                        <input type="text" placeholder="Discount Price" name="discprice" class="mt-5 px-3 py-2 w-40 rounded-md">
+                    </div>
+
+                    <p class="text-xl font-medium mt-6">Panel Details</p>
+                    <input type="text" placeholder="Background Colour" name="bg" class="mt-5 px-3 py-2 w-[325px] rounded-md">
+                    <div>
+                        <input type="text" placeholder="Panel Colour" name="pc" class="mt-5 px-3 py-2 w-40 rounded-md">
+                        <input type="text" placeholder="Text Colour" name="tc" class="mt-5 px-3 py-2 w-40 rounded-md">
+                    </div>
+
+                    <button class="px-3 py-2 bg-purple-600 w-[325px] mt-4 rounded-md text-white ">Create New Product</button>
+
+
+                </form>
+
+                
+
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

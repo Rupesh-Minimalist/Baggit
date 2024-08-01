@@ -13,7 +13,7 @@ module.exports.registeruser=async(req,res)=>{       // NAMED EXPORT
         const {name,phone,email,password}=req.body
 
         let is_user=await userModel.findOne({email})
-        if(is_user) return res.send(`${name} your account is already exist, Please Login`)
+        if(is_user) return res.send(`${name} your account already exist, Please Login`)
 
         bcrypt.genSalt(10,(err,salt)=>{
             bcrypt.hash(password,salt,async(err,hash)=>{
@@ -26,7 +26,7 @@ module.exports.registeruser=async(req,res)=>{       // NAMED EXPORT
 
                let token=jwt.sign({email:email,id:user._id},process.env.SECRET_KEY);
                res.cookie("token",token)
-               res.send("User Created sucessfully")
+               res.redirect("/shop") 
         })
     })
     }
@@ -40,15 +40,20 @@ module.exports.loginuser=async(req,res)=>{
     const {email,password}=req.body
 
     let user= await userModel.findOne({email:email})
-    console.log(user)
-    if(!user) return res.send("Email or Password is Wrong")
+    if(!user){
+         req.flash("error","Email or Password is Wrong")
+         return res.redirect("/")
+    }
     
     bcrypt.compare(password,user.password,(err,result)=>{
 
-        if(!result) return  res.send("Email or Password is Wrong")
+        if(!result){
+            req.flash("error","Email or Password is Wrong")
+            return res.redirect("/")
+        } 
         
         let token=jwt.sign({email:user.email,userid:user._id},process.env.SECRET_KEY)
         res.cookie("token",token);
-        res.send("Welcome to Baggit")    
+        res.redirect("/shop")  
     })    
 }

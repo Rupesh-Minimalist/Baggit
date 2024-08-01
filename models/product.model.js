@@ -4,8 +4,7 @@ const mongoose=require("mongoose")
 const productSchema=mongoose.Schema({
     
     image:{
-        type:String,
-        required:true,
+        type:Buffer,
     },
     name:{
         type:String,

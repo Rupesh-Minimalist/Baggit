@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baggit</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body>
+
+    <% if(success.length>0){ %>
+        <div class=" px-8 inline-block  h-8 bg-red-600 absolute left-1/2 -translate-x-1/2 text-center text-white font-bold text-xl rounded-b-md animate-pulse z-40">
+            <span class="">
+            <%= success %>
+            </span>
+        </div>
+        
+    <% } %>
+    
+
+    <div class="w-full min-h-screen bg-zinc-100 font-mono">
+        <div class="w-full flex items-center justify-between fixed bg-white shadow-lg z-10">
+            <img src="https://vivianamalls.com/wp-content/uploads/2023/08/Baggit-Viviana-Mall-Thane-Mumbai.png" alt="" class="w-28 -mb-2 ml-16">
+
+            <div class="flex gap-8 font-semibold text-xl pr-3">
+                <a href="/shop" class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Home</a>
+                <a href="/cart" class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white bg-zinc-100">Cart
+                    <% if(prod.length){ %>
+                    (<%= prod.length %>)
+                    <% } %>    
+                </a>
+                <a href="/myaccount" class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">My account</a>
+                <a href="/logout" class="hover:scale-105 px-2 py-1 rounded-md transition-all hover:bg-purple-600 hover:text-white">Logout</a>
+            </div>
+          
+        </div>
+
+        <hr class="w-full h-0.5 pt-32">
+
+        <h1 class="text-center font-bold text-2xl font-mono">Cart</h1>
+        
+        <% var total=0 %>
+        <% var discount=0 %>
+        <% var platformFee=10 %>
+        <% var shippingFee=49 %>
+        
+
+        <% if(prod.length>0){ %>
+         <%   prod.forEach((val)=>{  %>
+                
+                <% total+=val.price %>
+                <% discount+=Number(val.discount) %>
+
+
+                <div class="w-full flex flex-col items-center  mt-14">
+        
+                    <div class="w-2/3 bg-[<%= val.panelcolor %>] rounded-md flex text-xl justify-between">
+                            <div class="h-28 w-[65%] flex items-center justify-start">
+                                <img src="data:image/jpeg;base64,<%=val.image.toString('base64') %>" class=" h-[10rem]  p-2" alt="">
+                            </div>
+                            <div class="w-[35%]">
+                                <div class="w-full h-14 bg-[<%=val.bgcolor%>] flex justify-between items-center gap-4">
+                                    <p class="text-[<%= val.textcolor%>] pl-2"><%= val.name%></p>
+                                    <span class="flex gap-3 justify-between items-center pr-3" >
+                                        <p class="text-xs">1 Qty</p>
+                                        <a href="/remove/<%= val._id %>" class=" rounded-md px-1 py-1  bg-[<%= val.panelcolor %>] hover:bg-red-600 hover:text-white text-sm ">Remove</a>
+                                        
+                                    </span>
+                                </div>
+                                <div class="w-full h-14 bg-zinc-700 text-white flex justify-between px-4  items-center">
+                                    <p class="font-mono text-sm">COST</p> 
+                                    <p class="text-right ml-36">
+                                       <% if(val.discount==0){ %>
+                                           <%= val.price %>
+                                        <% } else{  %>
+                                            <p class="text-red-600 opacity-80 line-through z-0"><%= val.price %></p>
+                                            <p class=""><%= val.price-val.discount %></p>
+                                        <% } %>
+                                        
+                                    </p> 
+                                </div>
+                            </div>
+                            
+                    </div>
+                    
+                   
+                </div>
+          <%  }) %>
+       <% } else{  %>
+            <p class="text-5xl font-bold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-60 animate-pulse">Cart is Empty, Shop Now</p>
+        <% }  %>
+
+        <% if(prod.length>0){ %>
+            
+            <div class="w-[66%] mx-auto mt-10 pb-10  font-mono">
+                <p class=" text-2xl font-bold text-center">Price Breakdown</p>
+                <div class="pt-5 flex flex-col gap-3  font-medium text-left">
+                    <span class="flex justify-between">
+                        <p>Total Product Price</p>
+                        <p>₹<%= total %>/-</p>
+                    </span>
+                    <span class="flex justify-between">
+                        <p>Discount</p>
+                        <p>₹<%= discount %>/-</p>
+                    </span>
+                    <span class="flex justify-between">
+                        <p>Platform Fee</p>
+                        <p>₹<%= platformFee %>/-</p>
+                    </span>
+                    <span class="flex justify-between">
+                        <p>Shipping Fee</p>
+                        <p>₹<%= shippingFee %>/-</p>
+                    </span>
+                    
+                </div>
+                <hr class="w-full bg-black h-0.5 mt-5 ">
+                <div class="flex font-bold text-xl mt-5 justify-between">
+                    <p>Total Amount</p>
+                    <p class="text-green-600 ">₹<%= total+ shippingFee+ platformFee -discount %>/-</p>
+                </div>
+            </div>
+
+            <div class="flex justify-center pb-10">
+                <button class="bg-purple-600 px-3 py-2 rounded-md text-center text-white">Proceed To Pay</button>
+            </div>
+       <% } %>
+       
+
+        
+            
+    </div>
+
+</body>
+</html>
